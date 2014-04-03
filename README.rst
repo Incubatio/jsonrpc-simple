@@ -8,6 +8,7 @@ Comes with unit tests.
 Requirements
 ============
 - **Node** (for unit tests)
+- **CoffeeScript** (to compile coffee script to js), npm install coffee-script
 
 
 Commands
