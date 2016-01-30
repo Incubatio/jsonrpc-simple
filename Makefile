@@ -1,14 +1,17 @@
 build: clean
-	coffee --compile --output build src
+	coffee --compile --output lib src
 
-watch:
-	coffee --compile --watch --output build src
+watch: clean
+	coffee --compile --watch --output lib src
 
-clean: 
-	rm -rf build
+clean:
+	rm -rf lib
 
-deploy: 
+deploy:
 	git push -f origin HEAD:gh-pages
 
 test:
-	node tests/main.js
+	rm -rf test/build
+	coffee --compile --output test/build test/src
+	node test/build
+.PHONY: test

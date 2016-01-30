@@ -1,0 +1,15 @@
+{
+  "name": "jsonrpc-simple",
+  "version": "1.0.0",
+  "main": "lib/jsonrpc.js",
+  "scripts": {
+    "clean": "rm -rf lib",
+    "build": "npm run clean && coffee --compile --output lib src",
+    "test": "coffee --compile --output test/build test/src && node test/build"
+  },
+
+  "devDependencies": {
+    "coffee-script": "^1.9.3"
+  }
+
+}
