@@ -32,8 +32,8 @@ services =
   foobar: () ->
     log "foobar notification"
 
-  get_data: (a) ->
-    return ["hello " + a, 5]
+  get_data: () ->
+    return ["hello", 5]
 
 console.log "\n"
 console.log '  JSON-RPC test suite'
