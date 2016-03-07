@@ -5,13 +5,13 @@ watch: clean
 	coffee --compile --watch --output lib src
 
 clean:
-	rm -rf lib
+	/bin/rm -rf lib
 
 deploy:
 	git push -f origin HEAD:gh-pages
 
 test:
-	rm -rf test/build
+	/bin/rm -rf test/build
 	coffee --compile --output test/build test/src
 	node test/build
 .PHONY: test

@@ -31,7 +31,7 @@ class JSONRPC
     @return Boolean
   ###
   @isValidRequest: (req) ->
-    req.id = req.id || null
+    if req.id == undefined then req.id = null
     req.params = req.params || null
 
     return req.jsonrpc == JSONRPC.VERSION &&
@@ -65,7 +65,7 @@ class JSONRPC
     # TODO: If notification, no result awaited, execute it async
     for req in batch
       buff = JSONRPC._handleRequest(req, services)
-      if req.id || buff.error then res.push buff
+      if req.id != null || buff.error then res.push buff
 
     return if res.length > 0
       if isBatch then res else res[0]
@@ -94,7 +94,7 @@ class JSONRPC
       errorCode = if e instanceof Error then JSONRPC.INTERNAL_ERROR else e
       res.error = { code: errorCode, message: errorMsgs[errorCode] }
 
-    res.id = req.id || null
+    res.id = req.id
     return res
 
 module.exports = JSONRPC
