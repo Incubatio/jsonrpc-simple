@@ -109,6 +109,18 @@ module.exports = [
             {"jsonrpc": "2.0", "method": "notify_sum", "params": [1,2,4]},
             {"jsonrpc": "2.0", "method": "notify_hello", "params": [7]}
         ]'
-  }
+  },
   #Nothing is returned for all notification batches
+
+
+  # Additional test
+  "rpc call with a custom context for the service function"
+  {
+    req: '[
+            {"jsonrpc": "2.0", "method": "get_user", "params": [], "id": "1"}
+        ]'
+    res: '[
+            {"jsonrpc": "2.0", "result": "incubatio", "id": "1"}
+        ]'
+  }
 ]

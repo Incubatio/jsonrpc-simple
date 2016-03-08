@@ -47,7 +47,7 @@ class JSONRPC
     @param Array services  - keys are method name, value are functions
     @return Object | Array
   ###
-  @handleRequest: (req, services) ->
+  @handleRequest: (req, services, context) ->
 
     res = []
     batch = []
@@ -64,7 +64,7 @@ class JSONRPC
 
     # TODO: If notification, no result awaited, execute it async
     for req in batch
-      buff = JSONRPC._handleRequest(req, services)
+      buff = JSONRPC._handleRequest(req, services, context)
       if req.id != null || buff.error then res.push buff
 
     return if res.length > 0
@@ -80,7 +80,8 @@ class JSONRPC
     @param Array services
     @return Object - JSON-RPC 2.0 response.
   ###
-  @_handleRequest: (req, services) ->
+  @_handleRequest: (req, services, context) ->
+    context = context || services
     res = { jsonrpc: "2.0"}
     try
       if JSONRPC.isValidRequest(req) == false                   then throw JSONRPC.INVALID_REQUEST
@@ -88,13 +89,13 @@ class JSONRPC
       if typeof req.params != "object" && req.params != null    then throw JSONRPC.INVALID_PARAMS
 
       if !Array.isArray(req.params) then req.params = [req.params]
-      res.result = services[req.method].apply(this, req.params)
+      res.result = services[req.method].apply(context, req.params)
     catch e
       if JSONRPC.DEBUG then console.log "[DEBUG]", e
       errorCode = if e instanceof Error then JSONRPC.INTERNAL_ERROR else e
       res.error = { code: errorCode, message: errorMsgs[errorCode] }
 
-    res.id = req.id
+    res.id = req.id || null
     return res
 
 module.exports = JSONRPC

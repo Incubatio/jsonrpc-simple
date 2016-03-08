@@ -1,6 +1,6 @@
 {
   "name": "jsonrpc-simple",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "lib/jsonrpc.js",
   "scripts": {
     "clean": "rm -rf lib",
