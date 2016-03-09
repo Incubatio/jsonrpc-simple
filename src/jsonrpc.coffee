@@ -95,7 +95,7 @@ class JSONRPC
       errorCode = if e instanceof Error then JSONRPC.INTERNAL_ERROR else e
       res.error = { code: errorCode, message: errorMsgs[errorCode] }
 
-    res.id = req.id || null
+    res.id = if req.id == undefined then null else req.id
     return res
 
 module.exports = JSONRPC
